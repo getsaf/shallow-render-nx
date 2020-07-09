@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "projects": {
+    "shallow-render-nx": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/shallow-render-nx",
+      "sourceRoot": "apps/shallow-render-nx/src",
+      "prefix": "shallow-render-nx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/shallow-render-nx",
+            "index": "apps/shallow-render-nx/src/index.html",
+            "main": "apps/shallow-render-nx/src/main.ts",
+            "polyfills": "apps/shallow-render-nx/src/polyfills.ts",
+            "tsConfig": "apps/shallow-render-nx/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/shallow-render-nx/src/favicon.ico",
+              "apps/shallow-render-nx/src/assets"
+            ],
+            "styles": ["apps/shallow-render-nx/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/shallow-render-nx/src/environments/environment.ts",
+                  "with": "apps/shallow-render-nx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "shallow-render-nx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "shallow-render-nx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "shallow-render-nx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/shallow-render-nx/tsconfig.app.json",
+              "apps/shallow-render-nx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/shallow-render-nx/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/shallow-render-nx/jest.config.js",
+            "tsConfig": "apps/shallow-render-nx/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/shallow-render-nx/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "shallow-render-nx-e2e": {
+      "root": "apps/shallow-render-nx-e2e",
+      "sourceRoot": "apps/shallow-render-nx-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/shallow-render-nx-e2e/cypress.json",
+            "tsConfig": "apps/shallow-render-nx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "shallow-render-nx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "shallow-render-nx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/shallow-render-nx-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/shallow-render-nx-e2e/**/*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "shallow-render-nx"
+}

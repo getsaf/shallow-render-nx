@@ -1,0 +1,33 @@
+{
+  "npmScope": "shallow-render-nx",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "shallow-render-nx": {
+      "tags": []
+    },
+    "shallow-render-nx-e2e": {
+      "tags": [],
+      "implicitDependencies": ["shallow-render-nx"]
+    }
+  }
+}
